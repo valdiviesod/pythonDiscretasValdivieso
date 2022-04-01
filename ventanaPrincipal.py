@@ -1,5 +1,6 @@
 from cgitb import text
 from distutils import ccompiler
+from re import L
 from tkinter import *
 import tkinter as tk
 from tkinter import messagebox
@@ -279,7 +280,7 @@ def abrirCombinacionR():
 
 def abrirPermutacion():
     ventanaP = Toplevel()
-    ventanaP.title("Combinaciones con repeticion")
+    ventanaP.title("Permutacion sin repeticion")
     ventanaP.geometry("500x300")
     ventanaP.resizable(False,False)
 
@@ -315,14 +316,78 @@ def abrirPermutacion():
                 num -= 1
             return fact 
 
-    def combinacionR():
-        proceso = (factorial((int(cTotal.get()))))/(factorial(int(cTotal.get())-int(cCom.get())))
-        messagebox.showinfo(message= "La permutacion de " + str(cCom.get()) + " en " + str(cTotal.get()) + " es " + str(proceso))
+    def permutacionR():
+        if cTotal == cCom:
+            proceso = factorial(int(cTotal.get()))
+            messagebox.showinfo(message= "La permutacion de " + str(cCom.get()) + " en " + str(cTotal.get()) + " es " + str(proceso))
+        else:
+            proceso = (factorial((int(cTotal.get()))))/(factorial(int(cTotal.get())-int(cCom.get())))
+            messagebox.showinfo(message= "La permutacion de " + str(cCom.get()) + " en " + str(cTotal.get()) + " es " + str(proceso))
 
 
 
-    botonHallar = Button(ventanaP, text = "Hallar", command=combinacionR) 
+    botonHallar = Button(ventanaP, text = "Hallar", command=permutacionR) 
     botonHallar.place(x = 180, y = 220)
+
+def abrirPermutacionR():
+    ventanaPR = Toplevel()
+    ventanaPR.title("Permutacion con repeticion")
+    ventanaPR.geometry("500x400")
+    ventanaPR.resizable(False,False)
+
+    miLabel = Label(ventanaPR, text="Realice la permutacion con repeticion a partir de los datos dados", font= (18))
+    miLabel.place(x = "25", y = "10")
+
+    cTotal = Entry(ventanaPR)
+    cTotal.place(x= "250", y = "80")
+    cTotal.config(justify="right")
+
+    elementos = Entry(ventanaPR)
+    elementos.place(x= "300", y = "150")
+    elementos.config(justify="right")
+
+    elementos2 = Entry(ventanaPR)
+    elementos2.place(x= "300", y = "200")
+    elementos2.config(justify="right")
+
+    elementos3 = Entry(ventanaPR)
+    elementos3.place(x= "300", y = "250")
+    elementos3.config(justify="right")
+
+    labelNInicial = Label(ventanaPR, text= "Ingrese el numero total de elementos: ")
+    labelNInicial.place(x= "50", y = "80")
+
+    labelNFinal = Label(ventanaPR, text= "Ingrese las veces que se repite el primer elemento: ")
+    labelNFinal.place(x= "50", y = "150")
+
+    labelNFinal = Label(ventanaPR, text= "Ingrese las veces que se repite el segundo elemento: ")
+    labelNFinal.place(x= "50", y = "200")
+
+    labelNFinal = Label(ventanaPR, text= "Ingrese las veces que se repite el tercer elemento: ")
+    labelNFinal.place(x= "50", y = "250")
+
+    
+    def factorial(num): 
+        if num < 0: 
+            messagebox.showinfo(message= "ERROR, un numero es negativo")
+
+        elif num == 0: 
+            return 1
+        else: 
+            fact = 1
+            while(num > 1): 
+                fact *= num 
+                num -= 1
+            return fact 
+
+    def permutacionR():
+        proceso = (factorial((int(cTotal.get()))))/(factorial(int(elementos.get()))*factorial(int(elementos2.get()))*factorial(int(elementos3.get())))
+        messagebox.showinfo(message= "La permutacion de " + str(elementos.get()) + " en " + str(cTotal.get()) + " es " + str(proceso))
+
+
+
+    botonHallar = Button(ventanaPR, text = "Hallar", command=permutacionR) 
+    botonHallar.place(x = 180, y = 300)
     
 
 labelQueDesea = Label(raiz, text= "¿Que desea hacer?")
@@ -345,6 +410,9 @@ botonCombR.place(x = 165, y = 320)
 
 botonPer = Button(raiz, text = "Permutacion sin repeticion", command=abrirPermutacion)
 botonPer.place(x = 165, y = 370)
+
+botonPerR = Button(raiz, text = "Permutacion con repeticion", command=abrirPermutacionR)
+botonPerR.place(x = 165, y = 420)
 
 
 raiz.mainloop()

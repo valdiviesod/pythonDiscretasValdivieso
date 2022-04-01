@@ -276,6 +276,53 @@ def abrirCombinacionR():
 
     botonHallar = Button(ventanaCombR, text = "Hallar", command=combinacionR) 
     botonHallar.place(x = 180, y = 220)
+
+def abrirPermutacion():
+    ventanaP = Toplevel()
+    ventanaP.title("Combinaciones con repeticion")
+    ventanaP.geometry("500x300")
+    ventanaP.resizable(False,False)
+
+    miLabel = Label(ventanaP, text="Realice la permutacion sin repeticion a partir de los datos dados", font= (18))
+    miLabel.place(x = "25", y = "10")
+
+    cTotal = Entry(ventanaP)
+    cTotal.place(x= "250", y = "80")
+    cTotal.config(justify="right")
+
+    cCom = Entry(ventanaP)
+    cCom.place(x= "300", y = "150")
+    cCom.config(justify="right")
+
+    labelNInicial = Label(ventanaP, text= "Ingrese el numero total de elementos: ")
+    labelNInicial.place(x= "50", y = "80")
+
+
+    labelNFinal = Label(ventanaP, text= "Ingrese el numero de elementos que desea combinar: ")
+    labelNFinal.place(x= "50", y = "150")
+
+    
+    def factorial(num): 
+        if num < 0: 
+            messagebox.showinfo(message= "ERROR, un numero es negativo")
+
+        elif num == 0: 
+            return 1
+        else: 
+            fact = 1
+            while(num > 1): 
+                fact *= num 
+                num -= 1
+            return fact 
+
+    def combinacionR():
+        proceso = (factorial((int(cTotal.get()))))/(factorial(int(cTotal.get())-int(cCom.get())))
+        messagebox.showinfo(message= "La permutacion de " + str(cCom.get()) + " en " + str(cTotal.get()) + " es " + str(proceso))
+
+
+
+    botonHallar = Button(ventanaP, text = "Hallar", command=combinacionR) 
+    botonHallar.place(x = 180, y = 220)
     
 
 labelQueDesea = Label(raiz, text= "¿Que desea hacer?")
@@ -295,6 +342,9 @@ botonComb.place(x = 165, y = 270)
 
 botonCombR = Button(raiz, text = "Combinacion con repeticion", command=abrirCombinacionR)
 botonCombR.place(x = 165, y = 320)
+
+botonPer = Button(raiz, text = "Permutacion sin repeticion", command=abrirPermutacion)
+botonPer.place(x = 165, y = 370)
 
 
 raiz.mainloop()

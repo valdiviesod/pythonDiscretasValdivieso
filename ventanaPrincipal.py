@@ -229,6 +229,53 @@ def abrirCombinacion():
 
     botonHallar = Button(ventanaComb, text = "Hallar", command=combinacion) 
     botonHallar.place(x = 180, y = 220)
+
+def abrirCombinacionR():
+    ventanaCombR = Toplevel()
+    ventanaCombR.title("Combinaciones con repeticion")
+    ventanaCombR.geometry("500x300")
+    ventanaCombR.resizable(False,False)
+
+    miLabel = Label(ventanaCombR, text="Realice la combinación con repeticion a partir de los datos dados", font= (18))
+    miLabel.place(x = "25", y = "10")
+
+    cTotal = Entry(ventanaCombR)
+    cTotal.place(x= "250", y = "80")
+    cTotal.config(justify="right")
+
+    cCom = Entry(ventanaCombR)
+    cCom.place(x= "300", y = "150")
+    cCom.config(justify="right")
+
+    labelNInicial = Label(ventanaCombR, text= "Ingrese el numero total de elementos: ")
+    labelNInicial.place(x= "50", y = "80")
+
+
+    labelNFinal = Label(ventanaCombR, text= "Ingrese el numero de elementos que desea combinar: ")
+    labelNFinal.place(x= "50", y = "150")
+
+    
+    def factorial(num): 
+        if num < 0: 
+            messagebox.showinfo(message= "ERROR, un numero es negativo")
+
+        elif num == 0: 
+            return 1
+        else: 
+            fact = 1
+            while(num > 1): 
+                fact *= num 
+                num -= 1
+            return fact 
+
+    def combinacionR():
+        proceso = (factorial((int(cTotal.get())+int(cCom.get())-1)))/(factorial(int(cCom.get()))*factorial(int(cTotal.get())-1))
+        messagebox.showinfo(message= "La combinacion con repeticion de " + str(cCom.get()) + " en " + str(cTotal.get()) + " es " + str(proceso))
+
+
+
+    botonHallar = Button(ventanaCombR, text = "Hallar", command=combinacionR) 
+    botonHallar.place(x = 180, y = 220)
     
 
 labelQueDesea = Label(raiz, text= "¿Que desea hacer?")
@@ -243,8 +290,11 @@ botonBases.place(x = 160, y = 170)
 botonPrimos = Button(raiz, text = "Conversion de bases", command=abrirBases)
 botonPrimos.place(x = 185, y = 220)
 
-botonPrimos = Button(raiz, text = "Combinacion sin repeticion", command=abrirCombinacion)
-botonPrimos.place(x = 165, y = 270)
+botonComb = Button(raiz, text = "Combinacion sin repeticion", command=abrirCombinacion)
+botonComb.place(x = 165, y = 270)
+
+botonCombR = Button(raiz, text = "Combinacion con repeticion", command=abrirCombinacionR)
+botonCombR.place(x = 165, y = 320)
 
 
 raiz.mainloop()

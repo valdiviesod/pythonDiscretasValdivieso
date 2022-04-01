@@ -29,5 +29,12 @@ labelNInicial.place(x= "50", y = "80")
 labelNFinal = Label(miFrame, text= "Ingrese el numero final: ")
 labelNFinal.place(x= "50", y = "150")
 
+def permutacion(start, end=[]):
+    if len(start) == 0:
+        print(end)
+    else:
+        for i in range(len(start)):
+            permutacion(start[:i] + start[i+1:], end + start[i:i+1])
+
 
 raiz.mainloop()

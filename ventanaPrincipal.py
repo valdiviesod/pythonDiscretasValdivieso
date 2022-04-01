@@ -1,4 +1,5 @@
 from cgitb import text
+from distutils import ccompiler
 from tkinter import *
 import tkinter as tk
 from tkinter import messagebox
@@ -8,7 +9,7 @@ from tkinter import ttk
 
 raiz = Tk()
 raiz.title("Ventana principal")
-raiz.geometry("500x400")
+raiz.geometry("500x500")
 raiz.resizable(False,False)
 
 
@@ -181,6 +182,53 @@ def abrirBases():
 
     botonConvertir = Button(ventanaBases, text = "Convertir", command= cambioBase)
     botonConvertir.place(x = 130, y = 140)
+
+def abrirCombinacion():
+    ventanaComb = Toplevel()
+    ventanaComb.title("Combinaciones")
+    ventanaComb.geometry("500x300")
+    ventanaComb.resizable(False,False)
+
+    miLabel = Label(ventanaComb, text="Realice la combinación a partir de los datos dados", font= (18))
+    miLabel.place(x = "65", y = "10")
+
+    cTotal = Entry(ventanaComb)
+    cTotal.place(x= "250", y = "80")
+    cTotal.config(justify="right")
+
+    cCom = Entry(ventanaComb)
+    cCom.place(x= "300", y = "150")
+    cCom.config(justify="right")
+
+    labelNInicial = Label(ventanaComb, text= "Ingrese el numero total de elementos: ")
+    labelNInicial.place(x= "50", y = "80")
+
+
+    labelNFinal = Label(ventanaComb, text= "Ingrese el numero de elementos que desea combinar: ")
+    labelNFinal.place(x= "50", y = "150")
+
+    
+    def factorial(num): 
+        if num < 0: 
+            messagebox.showinfo(message= "ERROR, un numero es negativo")
+
+        elif num == 0: 
+            return 1
+        else: 
+            fact = 1
+            while(num > 1): 
+                fact *= num 
+                num -= 1
+            return fact 
+
+    def combinacion():
+        proceso = (factorial(int(cTotal.get())))/(factorial(int(cCom.get()))*factorial(int(cTotal.get())-int(cCom.get())))
+        messagebox.showinfo(message= "La combinacion de " + str(cCom.get()) + " en " + str(cTotal.get()) + " es " + str(proceso))
+
+
+
+    botonHallar = Button(ventanaComb, text = "Hallar", command=combinacion) 
+    botonHallar.place(x = 180, y = 220)
     
 
 labelQueDesea = Label(raiz, text= "¿Que desea hacer?")
@@ -194,6 +242,10 @@ botonBases.place(x = 160, y = 170)
 
 botonPrimos = Button(raiz, text = "Conversion de bases", command=abrirBases)
 botonPrimos.place(x = 185, y = 220)
+
+botonPrimos = Button(raiz, text = "Combinacion sin repeticion", command=abrirCombinacion)
+botonPrimos.place(x = 165, y = 270)
+
 
 raiz.mainloop()
 
